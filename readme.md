@@ -59,7 +59,8 @@ This launch file will:
 ### Code Documentation
 #### `dwa_action_server`
 Implement a **Dynamic Window Approach (DWA)** based motion planner as a **ROS 2 Action Server** under the action name `"dwa_planner"`. This planner enables a robot to navigate toward a goal while avoiding obstacles, utilizing input from `LaserScan` and `Odometry` data.
-##### Workflow:
+
+**Workflow**:
 - **Goal Received:** Extracts target `(x, y)` position and accepts the goal.    
 - **Path Generation:** Randomly samples velocity and turn-rate combinations.
 - **Scoring:**
@@ -70,14 +71,16 @@ Implement a **Dynamic Window Approach (DWA)** based motion planner as a **ROS 2 
 - **Best Path Selection:** Chooses and publishes the best-scored path.
 - **Execution:** Publishes velocity commands until goal is reached or aborted.
 - **Visualization:** Publishes top paths as RViz markers for debugging.
-##### Topics:
+
+**Topics**:
 - **Subscribed:**
     - `/odom` (`nav_msgs/msg/Odometry`): Robot's pose and velocity.
     - `/scan` (`sensor_msgs/msg/LaserScan`): Laser scan for obstacle data.
 - **Published:**
     - `/cmd_vel` (`geometry_msgs/msg/TwistStamped`): Velocity commands to the robot.
     - `/visual_paths` (`visualization_msgs/msg/Marker`): Visual markers of evaluated paths.
-##### Actions:
+
+**Actions**:
 Type: `dwa_motion_planner/action/DwaPlanner`
 - **Goal:**
     - `goal_x` (float)
@@ -87,7 +90,7 @@ Type: `dwa_motion_planner/action/DwaPlanner`
 - **Result:**
     - `reached` (bool): True if goal reached, else false.
 
-##### Method Descriptions
+**Method Descriptions**:
 - **`DWAPlanner()`** – Initializes the node, sets up action server, subscriptions, publishers, and RNG.
 - **`handle_goal()`** – Accepts incoming action goal and extracts target coordinates.
 - **`handle_cancel()`** – Handles client requests to cancel the current goal.
@@ -104,13 +107,15 @@ Type: `dwa_motion_planner/action/DwaPlanner`
 
 #### `dwa_action_client`
 Implements a ROS 2 Action Client node to send target goal positions to the DWA Action Server (`"dwa_planner"`). It allows initiating a motion planning request and monitors feedback and results from the server.
-##### Workflow:
+
+**Workflow**:
 - **Parameter Declaration:** Reads goal coordinates (`goal_x`, `goal_y`) from node parameters (default: 2.0, 1.0).
 - **Action Server Sync:** Waits for `"dwa_planner"` action server to be available.
 - **Goal Dispatch:** Sends a `DwaPlanner` goal to the server.
 - **Feedback Handling:** Displays the remaining distance to the goal in real-time.
 - **Result Handling:** Reports whether the robot successfully reached the goal or failed.
-##### Method Descriptions
+
+**Method Descriptions**:
 - **`DWAClient()`** – Initializes the action client, declares parameters, waits for the server, and sends the goal.
 - **`feedback_callback()`** – Receives and logs distance remaining to the target in real-time.
 - **`result_callback()`** – Logs success or failure of the goal once execution completes.
