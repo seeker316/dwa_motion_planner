@@ -23,9 +23,11 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 )
 
 add_executable(dwa_action_server src/dwa_action_server.cpp)
+add_executable(dwa_action_client src/dwa_action_client.cpp)
 
 ament_target_dependencies(dwa_action_server
   rclcpp
+  rclcpp_action
   geometry_msgs
   nav_msgs
   sensor_msgs
@@ -34,11 +36,14 @@ ament_target_dependencies(dwa_action_server
   visualization_msgs
 )
 
-rosidl_target_interfaces(dwa_action_server ${PROJECT_NAME} "rosidl_typesupport_cpp")
+ament_target_dependencies(dwa_action_client rclcpp rclcpp_action)
 
+rosidl_target_interfaces(dwa_action_server ${PROJECT_NAME} "rosidl_typesupport_cpp")
+rosidl_target_interfaces(dwa_action_client ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
 install(TARGETS
   dwa_action_server
+  dwa_action_client
 
   DESTINATION lib/${PROJECT_NAME}
 )
