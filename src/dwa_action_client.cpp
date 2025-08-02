@@ -11,7 +11,11 @@ class DWAClient : public rclcpp::Node
 {
         public:
         DWAClient() : Node("dwa_demo_client")
-        {
+        {       
+                this->declare_parameter<double>("goal_x",2.0);
+                this->declare_parameter<double>("goal_y", 1.0);
+
+
                 dwa_action_client_ = rclcpp_action::create_client<Dwa>(this, "dwa_planner");
 
                 if(!dwa_action_client_->wait_for_action_server(std::chrono::seconds(10)))
@@ -21,8 +25,8 @@ class DWAClient : public rclcpp::Node
                 }
 
                 auto goal_coord = Dwa::Goal();
-                goal_coord.goal_x = 2.0;
-                goal_coord.goal_y = 1.0;
+                goal_coord.goal_x = this->get_parameter("goal_x").as_double();
+                goal_coord.goal_y = this->get_parameter("goal_y").as_double();
 
                 auto send_goal_options = rclcpp_action::Client<Dwa>::SendGoalOptions();
 

@@ -7,6 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_action REQUIRED)
@@ -46,6 +47,11 @@ install(TARGETS
   dwa_action_client
 
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(
+        DIRECTORY launch 
+        DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
