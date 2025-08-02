@@ -36,7 +36,7 @@ sudo apt install \
 mkdir -p ~/dwa_ws/src
 cd ~/dwa_ws/src
 
-git clone <your-dwa-motion-planner-repo-url> dwa_motion_planner
+git clone https://github.com/seeker316/dwa_motion_planner.git
 
 cd ~/dwa_ws
 
@@ -70,7 +70,7 @@ Implement a **Dynamic Window Approach (DWA)** based motion planner as a **ROS 2 
     - Smoothness
 - **Best Path Selection:** Chooses and publishes the best-scored path.
 - **Execution:** Publishes velocity commands until goal is reached or aborted.
-- **Visualization:** Publishes top paths as RViz markers for debugging.
+- **Visualization:** Publishes top paths as RViz markers.
 
 **Topics**:
 - **Subscribed:**
@@ -91,7 +91,7 @@ Type: `dwa_motion_planner/action/DwaPlanner`
     - `reached` (bool): True if goal reached, else false.
 
 **Method Descriptions**:
-- **`DWAPlanner()`** – Initializes the node, sets up action server, subscriptions, publishers, and RNG.
+- **`DWAPlanner()`** – Initializes the node, sets up action server, subscriptions, publishers.
 - **`handle_goal()`** – Accepts incoming action goal and extracts target coordinates.
 - **`handle_cancel()`** – Handles client requests to cancel the current goal.
 - **`handle_accepted()`** – Spawns a new thread to execute the accepted goal.
@@ -109,7 +109,7 @@ Type: `dwa_motion_planner/action/DwaPlanner`
 Implements a ROS 2 Action Client node to send target goal positions to the DWA Action Server (`"dwa_planner"`). It allows initiating a motion planning request and monitors feedback and results from the server.
 
 **Workflow**:
-- **Parameter Declaration:** Reads goal coordinates (`goal_x`, `goal_y`) from node parameters (default: 2.0, 1.0).
+- **Parameter Declaration:** Reads goal coordinates (`goal_x`, `goal_y`) from node parameters.
 - **Action Server Sync:** Waits for `"dwa_planner"` action server to be available.
 - **Goal Dispatch:** Sends a `DwaPlanner` goal to the server.
 - **Feedback Handling:** Displays the remaining distance to the goal in real-time.
