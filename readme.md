@@ -1,6 +1,6 @@
 ### Dynamic Window Approach (DWA) for Local Path Planning
 
-The **Dynamic Window Approach (DWA)** is a real-time, trajectory-based **local path planning algorithm** commonly used in mobile robotics. It’s widely used in robotics for **differential drive and holonomic robots**.
+The **Dynamic Window Approach (DWA)** is a real-time, trajectory-based **local path planning algorithm**. It’s widely used in robotics for **differential drive and holonomic robots**.
 
 The DWA algorithm works in three main steps:
 1. **Velocity Sampling**:  
